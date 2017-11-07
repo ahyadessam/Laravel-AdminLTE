@@ -2,11 +2,12 @@
   "name": "ahyadessam/laravel-adminlte",
   "description": "AdminLTE template for Laravel",
   "keywords": ["laravel", "adminlte", "admin", "template", "bootstrap"],
+  "homepage": "https://github.com/ahyadessam/Laravel-AdminLTE",
   "license": "MIT",
   "authors": [
     {
       "name": "Ahyad Essam",
-      "wibsite": "ahyad.com",
+      "homepage": "ahyad.com",
       "twitter": "@AhyadEssam"
     }
   ],
