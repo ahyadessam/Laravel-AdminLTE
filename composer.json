@@ -1,5 +1,5 @@
 {
-  "name": "ahyadessam/laravel-adminlte",
+  "name": "ahyadessam/adminlte",
   "description": "AdminLTE template for Laravel",
   "keywords": ["laravel", "adminlte", "admin", "template", "bootstrap"],
   "homepage": "https://github.com/ahyadessam/Laravel-AdminLTE",
@@ -12,10 +12,14 @@
     }
   ],
   "autoload": {
-
+    "psr-4": {
+      "ahyadessam\\AdminLTE\\": "src/"
+    }
   },
   "autoload-dev": {
-
+    "psr-4": {
+      "ahyadessam\\AdminLTE\\": "src/"
+    }
   },
   "require": {
     "laravel/framework": "~5.1.12|~5.2.0|~5.3.0|~5.4.0|~5.5.0",
