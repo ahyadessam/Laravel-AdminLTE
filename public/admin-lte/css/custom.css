@@ -1,0 +1,19 @@
+.has-action a {
+  display: inline-block;
+  color: black;
+  margin: 0 5px;
+  font-size: 17px;
+}
+.create-btn {
+  margin-bottom: 20px;
+  margin-right: 10px;
+}
+.red {
+  color: #e00000;
+}
+.img-width img {
+  max-width: 150px;
+}
+.sidebar-menu {
+  padding-bottom: 50px !important;
+}

@@ -13,11 +13,16 @@ class AdminLTEServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+      if(!file_exists(config_path('adminlte.php'))){
+        $this->publishes([
+          __DIR__.'/../config/admin_lte.php' => config_path('admin_lte.php')
+        ]);
+      }
+
       $this->publishes([
-        __DIR__.'../config/adminlte.php' => config_path('adminlte.php'),
-        __DIR__.'../lang' => resource_path('lang'),
-        __DIR__.'../resources/views/adminlte_layout' => resource_path('views'),
-        __DIR__.'../public' => public_path(''),
+        __DIR__.'/../lang' => resource_path('lang'),
+        __DIR__.'/../resources/views' => resource_path('views'),
+        __DIR__.'/../public' => public_path(''),
       ]);
     }
 

@@ -3,25 +3,30 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ (isset($meta_title)) ? $meta_title : 'Majoor Dashboard' }}</title>
+  <title>@yield('page_title', 'Laravel AdminLTE')</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="{{ asset('lib/bootstrap/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin-lte/lib/bootstrap/css/bootstrap.min.css') }}">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('lib/font-awesome/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin-lte/lib/font-awesome/css/font-awesome.min.css') }}">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="{{ asset('lib/ionicons/css/ionicons.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin-lte/lib/ionicons/css/ionicons.min.css') }}">
   <!-- iCheck -->
-  <link rel="stylesheet" href="{{ asset('lib/iCheck/all.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin-lte/lib/iCheck/all.css') }}">
   <!-- jvectormap -->
-  <link rel="stylesheet" href="{{ asset('lib/jvectormap/jquery-jvectormap-1.2.2.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin-lte/lib/jvectormap/jquery-jvectormap-1.2.2.css') }}">
   <!-- Date Picker -->
-  <link rel="stylesheet" href="{{ asset('lib/datepicker/datepicker3.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin-lte/lib/datepicker/datepicker3.css') }}">
   <!-- Daterange picker -->
-  <link rel="stylesheet" href="{{ asset('lib/daterangepicker/daterangepicker.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin-lte/lib/daterangepicker/daterangepicker.css') }}">
   <!-- bootstrap wysihtml5 - text editor -->
-  <link rel="stylesheet" href="{{ asset('lib/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin-lte/lib/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('admin-lte/css/AdminLTE.min.css') }}">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="{{ asset('admin-lte/css/skins/_all-skins.min.css') }}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,50 +35,46 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
-  <link rel="stylesheet" href="{{ asset('css/amaz.css') }}">
+  @yield('css-files')
+
+  <link rel="stylesheet" href="{{ asset('admin-lte/css/custom.css') }}">
 
   <!-- jQuery 2.2.3 -->
-  <script src="{{ asset('lib/jQuery/jquery-2.2.3.min.js') }}"></script>
+  <script src="{{ asset('admin-lte/lib/jQuery/jquery-2.2.3.min.js') }}"></script>
   <!-- jQuery UI 1.11.4 -->
-  <script src="{{ asset('lib/jquery-ui/jquery-ui.min.js') }}"></script>
+  <script src="{{ asset('admin-lte/lib/jquery-ui/jquery-ui.min.js') }}"></script>
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
   <script>
     $.widget.bridge('uibutton', $.ui.button);
   </script>
   <!-- Bootstrap 3.3.6 -->
-  <script src="{{ asset('lib/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('admin-lte/lib/bootstrap/js/bootstrap.min.js') }}"></script>
   <!-- Sparkline -->
-  <script src="{{ asset('lib/sparkline/jquery.sparkline.min.js') }}"></script>
+  <script src="{{ asset('admin-lte/lib/sparkline/jquery.sparkline.min.js') }}"></script>
   <!-- jvectormap -->
-  <script src="{{ asset('lib/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-  <script src="{{ asset('lib/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+  <script src="{{ asset('admin-lte/lib/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
+  <script src="{{ asset('admin-lte/lib/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
   <!-- jQuery Knob Chart -->
-  <script src="{{ asset('lib/knob/jquery.knob.js') }}"></script>
+  <script src="{{ asset('admin-lte/lib/knob/jquery.knob.js') }}"></script>
   <!-- daterangepicker -->
-  <script src="{{ asset('lib/moment.min.js') }}"></script>
-  <script src="{{ asset('lib/daterangepicker/daterangepicker.js') }}"></script>
+  <script src="{{ asset('admin-lte/lib/moment.min.js') }}"></script>
+  <script src="{{ asset('admin-lte/lib/daterangepicker/daterangepicker.js') }}"></script>
   <!-- datepicker -->
-  <script src="{{ asset('lib/datepicker/bootstrap-datepicker.js') }}"></script>
+  <script src="{{ asset('admin-lte/lib/datepicker/bootstrap-datepicker.js') }}"></script>
   <!-- Bootstrap WYSIHTML5 -->
-  <script src="{{ asset('lib/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
+  <script src="{{ asset('admin-lte/lib/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
   <!-- Slimscroll -->
-  <script src="{{ asset('lib/slimScroll/jquery.slimscroll.min.js') }}"></script>
+  <script src="{{ asset('admin-lte/lib/slimScroll/jquery.slimscroll.min.js') }}"></script>
   <!-- FastClick -->
-  <script src="{{ asset('lib/fastclick/fastclick.js') }}"></script>
-  <script src="{{ asset('lib/iCheck/icheck.min.js') }}"></script>
+  <script src="{{ asset('admin-lte/lib/fastclick/fastclick.js') }}"></script>
+  <script src="{{ asset('admin-lte/lib/iCheck/icheck.min.js') }}"></script>
 
-  <?php
-  if(isset($header_files)){
-    foreach($header_files As $file)
-      echo $file;
-  }
-  ?>
+  @yield('js-files')
 
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="{{ asset('css/skins/_all-skins.min.css') }}">
+  <!-- AdminLTE App -->
+  <script src="{{ asset('admin-lte/js/adminlte.min.js') }}"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="{{ asset('admin-lte/js/demo.js') }}"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -81,11 +82,11 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="{{ url('admin') }}" class="logo">
+    <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini">Majoor</span>
+      <span class="logo-mini">LA</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Majoor</b></span>
+      <span class="logo-lg"><b>Laravel AdminLTE</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -110,11 +111,7 @@
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        @if(Auth::user()->avatar)
-                          <img src="{{ url('uploads/users/'.Auth::user()->avatar) }}" class="img-circle" alt="User Image">
-                        @else
-                          <img src="{{ asset('img/user-icon.png') }}" class="img-circle" alt="User Image">
-                        @endif
+                        <img src="{{ asset('admin-lte/img/user-icon.png') }}" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Support Team
@@ -127,7 +124,7 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="{{ asset('img/user3-128x128.jpg') }}" class="img-circle" alt="User Image">
+                        <img src="{{ asset('admin-lte/img/user3-128x128.jpg') }}" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         AdminLTE Design Team
@@ -139,7 +136,7 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="{{ asset('img/user4-128x128.jpg') }}" class="img-circle" alt="User Image">
+                        <img src="{{ asset('admin-lte/img/user4-128x128.jpg') }}" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Developers
@@ -151,7 +148,7 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="{{ asset('img/user3-128x128.jpg') }}" class="img-circle" alt="User Image">
+                        <img src="{{ asset('admin-lte/img/user3-128x128.jpg') }}" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Sales Department
@@ -163,7 +160,7 @@
                   <li>
                     <a href="#">
                       <div class="pull-left">
-                        <img src="{{ asset('img/user4-128x128.jpg') }}" class="img-circle" alt="User Image">
+                        <img src="{{ asset('admin-lte/img/user4-128x128.jpg') }}" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Reviewers
@@ -296,24 +293,15 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              @if(Auth::user()->avatar)
-                <img src="{{ url('uploads/users/'.Auth::user()->avatar) }}" class="user-image" alt="User Image">
-              @else
-                <img src="{{ asset('img/user-icon.png') }}" class="user-image" alt="User Image">
-              @endif
-              <span class="hidden-xs">{{ ucfirst(Auth::user()->full_name) }}</span>
+              <img src="{{ asset('admin-lte/img/user-icon.png') }}" class="user-image" alt="User Image">
+              <span class="hidden-xs">Ahyad Essam</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                @if(Auth::user()->avatar)
-                  <img src="{{ url('uploads/users/'.Auth::user()->avatar) }}" class="img-circle" alt="User Image">
-                @else
-                  <img src="{{ asset('img/user-icon.png') }}" class="img-circle" alt="User Image">
-                @endif
-
+                <img src="{{ asset('admin-lte/img/user-icon.png') }}" class="img-circle" alt="User Image">
                 <p>
-                  {{ Auth::user()->group }}
+                  Web Developer
                 </p>
               </li>
               <!-- Menu Body -->
@@ -338,13 +326,13 @@
                 </div>
                 <div class="pull-right">
                   <!-- a href="/logout" class="btn btn-default btn-flat">Sign out</a -->
-                  <a href="{{ route('logout') }}" class="btn btn-default btn-flat"
+                  <a href="/logout" class="btn btn-default btn-flat"
                       onclick="event.preventDefault();
                                document.getElementById('logout-form').submit();">
                       Sign out
                   </a>
 
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  <form id="logout-form" action="/logout" method="POST" style="display: none;">
                       {{ csrf_field() }}
                   </form>
                 </div>
@@ -366,14 +354,10 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          @if(Auth::user()->avatar)
-            <img src="{{ url('uploads/users/'.Auth::user()->avatar) }}" class="img-circle" alt="User Image">
-          @else
-            <img src="{{ asset('img/user-icon.png') }}" class="img-circle" alt="User Image">
-          @endif
+          <img src="{{ asset('admin-lte/img/user-icon.png') }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>{{ ucfirst(Auth::user()->full_name) }}</p>
+          <p>Ahyad Essam</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -391,77 +375,39 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
-        @if(in_array('users', Auth::user()->permissions))
-          <li><a href="/admin/users"><i class="fa fa-user" aria-hidden="true"></i> <span>Users</span></a></li>
-        @endif
-        @if(in_array('clients', Auth::user()->permissions))
-          <li><a href="/admin/clients"><i class="fa fa-user-md" aria-hidden="true"></i> <span>Clients</span></a></li>
-        @endif
-        @if(in_array('orders', Auth::user()->permissions))
-          <li><a href="/admin/orders"><i class="fa fa-shopping-bag" aria-hidden="true"></i> <span>Orders</span></a></li>
-        @endif
-        @if(in_array('invoices', Auth::user()->permissions))
-          <li><a href="/admin/invoice"><i class="fa fa-sticky-note-o" aria-hidden="true"></i> <span>Invoices</span></a></li>
-        @endif
-        @if(in_array('payments', Auth::user()->permissions))
-          <li><a href="/admin/payments"><i class="fa fa-money" aria-hidden="true"></i> <span>Payments</span></a></li>
-        @endif
-        @if(in_array('companies', Auth::user()->permissions))
-          <li><a href="/admin/company"><i class="fa fa-building" aria-hidden="true"></i> <span>Companies</span></a></li>
-        @endif
-        @if(in_array('categories', Auth::user()->permissions))
-          <li><a href="/admin/category"><i class="fa fa-tags" aria-hidden="true"></i> <span>Categories</span></a></li>
-        @endif
-        @if(in_array('services', Auth::user()->permissions))
-          <li><a href="/admin/service"><i class="fa fa-sitemap" aria-hidden="true"></i> <span>Services</span></a></li>
-        @endif
-        @if(in_array('medicines', Auth::user()->permissions))
-          <li><a href="/admin/medicines"><i class="fa fa-medkit" aria-hidden="true"></i> <span>Medicines</span></a></li>
-        @endif
-        @if(in_array('length', Auth::user()->permissions))
-          <li><a href="/admin/length"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Medicine interval</span></a></li>
-        @endif
-        @if(in_array('neem_orders', Auth::user()->permissions))
-          <li><a href="/admin/neem"><i class="fa fa-ambulance" aria-hidden="true"></i> <span>Neem orders</span></a></li>
-          <li><a href="/admin/neemWeb"><i class="fa fa-globe" aria-hidden="true"></i> <span>Neem Web orders</span></a></li>
-        @endif
-        @if(in_array('pages', Auth::user()->permissions))
-          <li><a href="/admin/pages"><i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Pages</span></a></li>
-        @endif
-        @if(in_array('notifications', Auth::user()->permissions))
-          <li><a href="/admin/notifications"><i class="fa fa-bell" aria-hidden="true"></i> <span>Notifications</span></a></li>
-        @endif
-        @if(array_intersect(['groups','admins', 'countries', 'cities', 'banks', 'settings'], Auth::user()->permissions))
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-cogs"></i>
-            <span>Settings</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            @if(in_array('admins', Auth::user()->permissions))
-              <li><a href="/admin/admins"><i class="fa fa-user-secret"></i> Adminstrators</a></li>
-            @endif
-            @if(in_array('groups', Auth::user()->permissions))
-              <li><a href="/admin/groups"><i class="fa fa-users"></i> Groups</a></li>
-            @endif
-            @if(in_array('countries', Auth::user()->permissions))
-              <li><a href="/admin/country"><i class="fa fa-globe" aria-hidden="true"></i> Countries</a></li>
-            @endif
-            @if(in_array('cities', Auth::user()->permissions))
-              <li><a href="/admin/city"><i class="fa fa-road" aria-hidden="true"></i> Cities</a></li>
-            @endif
-            @if(in_array('banks', Auth::user()->permissions))
-              <li><a href="/admin/banks"><i class="fa fa-university" aria-hidden="true"></i> Banks</a></li>
-            @endif
-            @if(in_array('settings', Auth::user()->permissions))
-              <li><a href="/admin/settings"><i class="fa fa-wrench" aria-hidden="true"></i> General Settings</a></li>
-            @endif
-          </ul>
-        </li>
-        @endif
+        <?php
+        $admin_lang   = App::getLocale();
+        $admin_menus  = config('admin_lte');
+
+        foreach($admin_menus As $menu){
+          if(!empty($menu['submenu'])){
+            ?>
+            <li class="treeview">
+              <a href="<?php echo $menu['link'] ?>">
+                <?php echo $menu['icon'] ?>
+                <span><?php echo $menu['title'][$admin_lang] ?></span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <?php
+                foreach($menu['submenu'] As $submenu){
+                  ?>
+                  <li><a href="<?php echo $submenu['link']; ?>"><?php echo $submenu['icon'].' '.$submenu['title'][$admin_lang] ?></a></li>
+                  <?php
+                }
+                ?>
+              </ul>
+            </li>
+            <?php
+          }else{
+            ?>
+            <li><a href="<?php echo $menu['link']; ?>"><?php echo $menu['icon']; ?> <span><?php echo $menu['title'][$admin_lang]; ?></span></a></li>
+            <?php
+          }
+        }
+        ?>
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -481,9 +427,9 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 1.0.0
+      <b>Version</b> 1.0.3
     </div>
-    <strong>Copyright &copy; 2017 <a href="http://amaz.sa">Amaz</a>.</strong> All rights
+    <strong>Copyright &copy; 2017 <a href="http://ahyad.com">Eng. Ahyad Essam</a>.</strong> All rights
     reserved.
   </footer>
 
@@ -682,10 +628,8 @@
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
+
 @yield('javascript');
-<!-- AdminLTE App -->
-<script src="{{ asset('js/admin_app.min.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('js/demo.js') }}"></script>
+
 </body>
 </html>
