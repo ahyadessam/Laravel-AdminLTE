@@ -17,7 +17,7 @@ Simple and easy to use [Admin LTE](https://adminlte.io) template for laravel
 3. Publish the public assets:
 
     ```
-    php artisan vendor:publish
+    php artisan vendor:publish --provider="ahyadessam\AdminLTE\AdminLTEServiceProvider"
     ```
 
 # 2- Usage

@@ -427,7 +427,7 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 1.0.3
+      <b>Version</b> 1.0.4
     </div>
     <strong>Copyright &copy; 2017 <a href="http://ahyad.com">Eng. Ahyad Essam</a>.</strong> All rights
     reserved.
