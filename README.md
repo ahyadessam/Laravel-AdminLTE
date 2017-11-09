@@ -73,5 +73,10 @@ alert('test');
 # 3- Menu
 You will find menu array in `config/admin_lte.php`, you can custom it as you link.
 
-# 4- Contact
+# I have a simple system for administrators and groups permissions (mini_system)
+- This is a simple system you can used it to manage your admins and permissions
+- It's contain administrators and groups modules
+- you will find it in this link : [mini_system](https://github.com/ahyadessam/Laravel-AdminLTE/tree/master/mini_system)
+
+# Contact
 for any question you can contact with me on twitter [@AhyadEssam](https://twitter.com/AhyadEssam), thanks
