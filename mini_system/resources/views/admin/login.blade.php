@@ -67,6 +67,14 @@
               <strong>{{ $errors->first('password') }}</strong>
           </span>
       @endif
+      <div class="form-group has-feedback">
+        <select class="form-control" name="language">
+          <option value="en">English</option>
+          <option value="ar">Arabic</option>
+        </select>
+        <!-- span class="glyphicon glyphicon-lock form-control-feedback"></span -->
+        <span class="fa fa-language form-control-feedback"></span>
+      </div>
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
