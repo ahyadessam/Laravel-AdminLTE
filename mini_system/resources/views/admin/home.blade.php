@@ -7,7 +7,7 @@
 @section('js-files')
 <script src="{{ asset('admin-lte/lib/raphael/raphael.min.js') }}"></script>
 <script src="{{ asset('admin-lte/lib/morris/morris.min.js') }}"></script>
-<script src="{{ asset('admin-lte/js/dashboard.js') }}"></script>
+<!-- script src="{{ asset('admin-lte/js/dashboard.js') }}"></script -->
 @endsection
 
 @section('content-header')

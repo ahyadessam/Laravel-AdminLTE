@@ -8,6 +8,9 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="{{ asset('admin-lte/lib/bootstrap/css/bootstrap.min.css') }}">
+  @if(Session::get('admin_lang') == 'ar')
+  <link rel="stylesheet" href="{{ asset('admin-lte/lib/bootstrp-rtl/css/bootstrap-flipped.min.css') }}">
+  @endif
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset('admin-lte/lib/font-awesome/css/font-awesome.min.css') }}">
   <!-- Ionicons -->
@@ -23,10 +26,16 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="{{ asset('admin-lte/lib/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
   <!-- Theme style -->
+
+  @if(Session::get('admin_lang') == 'ar')
+  <link rel="stylesheet" href="{{ asset('admin-lte/css/AdminLTE-rtl.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin-lte/css/skins/_all-skins-rtl.min.css') }}">
+  @else
   <link rel="stylesheet" href="{{ asset('admin-lte/css/AdminLTE.min.css') }}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('admin-lte/css/skins/_all-skins.min.css') }}">
+  @endif
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
