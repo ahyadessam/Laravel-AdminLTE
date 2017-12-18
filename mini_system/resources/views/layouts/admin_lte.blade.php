@@ -8,7 +8,7 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="{{ asset('admin-lte/lib/bootstrap/css/bootstrap.min.css') }}">
-  @if(Session::get('admin_lang') == 'ar')
+  @if(App::getLocale() == 'ar')
   <link rel="stylesheet" href="{{ asset('admin-lte/lib/bootstrp-rtl/css/bootstrap-flipped.min.css') }}">
   @endif
   <!-- Font Awesome -->
@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="{{ asset('admin-lte/lib/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
   <!-- Theme style -->
 
-  @if(Session::get('admin_lang') == 'ar')
+  @if(App::getLocale() == 'ar')
   <link rel="stylesheet" href="{{ asset('admin-lte/css/AdminLTE-rtl.min.css') }}">
   <link rel="stylesheet" href="{{ asset('admin-lte/css/skins/_all-skins-rtl.min.css') }}">
   @else
@@ -397,7 +397,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <?php
-        $admin_lang   = App::getLocale();
+        $admin_lang   = App::getLocale(); 
         $admin_menus  = config('admin_lte');
 
         foreach($admin_menus As $menu){
