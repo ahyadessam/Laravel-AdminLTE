@@ -26,10 +26,12 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="{{ asset('admin-lte/lib/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
   <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('admin-lte/lib/bootstrap-fileinput/css/fileinput.min.css') }}">
 
   @if(App::getLocale() == 'ar')
   <link rel="stylesheet" href="{{ asset('admin-lte/css/AdminLTE-rtl.min.css') }}">
   <link rel="stylesheet" href="{{ asset('admin-lte/css/skins/_all-skins-rtl.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin-lte/lib/bootstrap-fileinput/css/fileinput-rtl.min.css') }}">
   @else
   <link rel="stylesheet" href="{{ asset('admin-lte/css/AdminLTE.min.css') }}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -47,6 +49,10 @@
   @yield('css-files')
 
   <link rel="stylesheet" href="{{ asset('admin-lte/css/custom.css') }}">
+
+  @if(App::getLocale() == 'ar')
+  <link rel="stylesheet" href="{{ asset('admin-lte/css/custom-rtl.css') }}">
+  @endif
 
   <!-- jQuery 2.2.3 -->
   <script src="{{ asset('admin-lte/lib/jQuery/jquery-2.2.3.min.js') }}"></script>
@@ -78,6 +84,11 @@
   <script src="{{ asset('admin-lte/lib/fastclick/fastclick.js') }}"></script>
   <script src="{{ asset('admin-lte/lib/iCheck/icheck.min.js') }}"></script>
 
+  <script src="{{ asset('admin-lte/lib/bootstrap-fileinput/js/fileinput.min.js') }}"></script>
+  @if(App::getLocale() == 'ar')
+  <script src="{{ asset('admin-lte/lib/bootstrap-fileinput/js/locales/ar.js') }}"></script>
+  @endif
+
   @yield('js-files')
 
 </head>
@@ -102,18 +113,18 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
-          <li class="dropdown messages-menu">
+          <!--li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
               <span class="label label-success">4</span>
             </a>
             <ul class="dropdown-menu">
               <li class="header">You have 4 messages</li>
-              <li>
+              <li> -->
                 <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li><!-- start message -->
-                    <a href="#">
+                <!-- ul class="menu">
+                  <li --><!-- start message -->
+                    <!-- a href="#">
                       <div class="pull-left">
                         @if(Auth::user() && Auth::user()->avatar)
                           <img src="{{ url('uploads/'.Auth::user()->avatar) }}" class="img-circle" alt="User Image">
@@ -127,9 +138,9 @@
                       </h4>
                       <p>Why not buy a new awesome theme?</p>
                     </a>
-                  </li>
+                  </li>-->
                   <!-- end message -->
-                  <li>
+                  <!-- li>
                     <a href="#">
                       <div class="pull-left">
                         <img src="{{ asset('admin-lte/img/user3-128x128.jpg') }}" class="img-circle" alt="User Image">
@@ -181,7 +192,7 @@
               </li>
               <li class="footer"><a href="#">See All Messages</a></li>
             </ul>
-          </li>
+          </li -->
           <!-- Notifications: style can be found in dropdown.less -->
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -225,18 +236,18 @@
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
-          <li class="dropdown tasks-menu">
+          <!-- li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
               <span class="label label-danger">9</span>
             </a>
             <ul class="dropdown-menu">
               <li class="header">You have 9 tasks</li>
-              <li>
+              <li>-->
                 <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
+                <!-- ul class="menu">
+                  <li--><!-- Task item -->
+                    <!-- a href="#">
                       <h3>
                         Design some buttons
                         <small class="pull-right">20%</small>
@@ -247,10 +258,10 @@
                         </div>
                       </div>
                     </a>
-                  </li>
+                  </li-->
                   <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
+                  <!-- li--><!-- Task item -->
+                    <!-- a href="#">
                       <h3>
                         Create a nice theme
                         <small class="pull-right">40%</small>
@@ -261,10 +272,10 @@
                         </div>
                       </div>
                     </a>
-                  </li>
+                  </li-->
                   <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
+                  <!-- li --><!-- Task item -->
+                    <!-- a href="#">
                       <h3>
                         Some task I need to do
                         <small class="pull-right">60%</small>
@@ -275,10 +286,10 @@
                         </div>
                       </div>
                     </a>
-                  </li>
+                  </li -->
                   <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
+                  <!-- li --><!-- Task item -->
+                    <!-- a href="#">
                       <h3>
                         Make beautiful transitions
                         <small class="pull-right">80%</small>
@@ -289,15 +300,15 @@
                         </div>
                       </div>
                     </a>
-                  </li>
+                  </li -->
                   <!-- end task item -->
-                </ul>
+                <!-- /ul>
               </li>
               <li class="footer">
                 <a href="#">View all tasks</a>
               </li>
             </ul>
-          </li>
+          </li -->
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -391,13 +402,13 @@
                 </button>
               </span>
         </div>
-      </form>
+      </form> 
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <?php
-        $admin_lang   = App::getLocale(); 
+        $admin_lang   = App::getLocale();
         $admin_menus  = config('admin_lte');
 
         foreach($admin_menus As $menu){
@@ -675,6 +686,21 @@
 <script src="{{ asset('admin-lte/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('admin-lte/js/demo.js') }}"></script>
+
+<script>
+@if(App::getLocale() == 'ar')
+  $('input[type=file]').fileinput({
+    'hiddenThumbnailContent':true,
+    'showUpload':false,
+    'language': 'ar'
+  });
+@else
+  $('input[type=file]').fileinput({
+    'hiddenThumbnailContent':true,
+    'showUpload':false
+  });
+@endif
+</script>
 
 @yield('javascript');
 
