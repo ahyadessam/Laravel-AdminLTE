@@ -1,4 +1,4 @@
-@extends('adminlte_layout.admin_lte')
+@extends('layouts.admin_lte')
 
 @section('css-files')
 <link rel="stylesheet" href="{{ asset('admin-lte/lib/datatables/dataTables.bootstrap.css') }}">
@@ -11,12 +11,12 @@
 
 @section('content-header')
 <h1>
-  <i class="fa fa-globe"></i> Countries
-  <small>List</small>
+  <i class="fa fa-credit-card" aria-hidden="true"></i> الكوبونات
+  <small>قائمة</small>
 </h1>
 <ol class="breadcrumb">
-  <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-  <li class="active">Countries</li>
+  <li><a href="/admin"><i class="fa fa-dashboard"></i> الرئيسية</a></li>
+  <li class="active">الكوبونات</li>
 </ol>
 @endsection
 
@@ -25,57 +25,60 @@
   <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        All Countries
+        جميع الكوبونات
       </div>
       <div class="box-body">
         <div class="row">
           <div class="col-xs-12 text-right">
-            <a href="#" class="btn btn-success create-btn"><i class="fa fa-plus" aria-hidden="true"></i> Create Country</a>
+            <a href="/admin/coupon/create" class="btn btn-success create-btn"><i class="fa fa-plus" aria-hidden="true"></i> إضافة كوبون</a>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-            @include('adminlte_temp.errors')
-            @include('adminlte_temp.success')
+            @include('widgets.errors')
+            @include('widgets.success')
           </div>
         </div>
         <div class="row">
           <div class="col-sm-10 col-sm-offset-1 col-xs-12 table-responsive">
-            <table id="usersTable" class="table table-bordered table-striped" data-order='[[ 1, "desc" ]]' data-page-length='25'>
+            @if($rows)
+              <table id="usersTable" class="table table-bordered table-striped" data-order='[[ 0, "desc" ]]' data-page-length='25'>
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Code</th>
-                    <th>Currency</th>
-                    <th>Actions</th>
+                    <th>الاسم</th>
+                    <th>الجوال</th>
+                    <th>المدينة</th>
+                    <th>الإجمالي</th>
+                    <th>الحالة</th>
+                    <th>بتاريخ</th>
+                    <th>العمليات</th>
                   </tr>
                 </thead>
                 <tbody>
+                @foreach($rows As $row)
                   <tr>
-                    <td>1</td>
-                    <td>Egypt</td>
-                    <td>EG</td>
-                    <td>EGP</td>
+                    <td>{{ $row->id }}</td>
+                    <td>{{ $row->name }}</td>
+                    <td>{{ $row->mobile }}</td>
+                    <td>{{ $row->city }}</td>
+                    <td>{{ ($row->discount_total)? $row->discount_total : $row->total }}</td>
+                    <td>{{ ($row->status)? 'مغلق' : 'مفتوح' }}</td>
+                    <td style="direction: ltr; text-align: right;">{{ $row->created_at->diffForHumans() }}</td>
                     <td class="has-action">
-                      <a href="#" title="Show Details"><i class="fa fa-id-card-o" aria-hidden="true"></i></a>
-                      <a href="#" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                      <a href="javascript:void(0)" title="Delete" onclick="setDelete('url')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                      <a href="/admin/orders/{{ $row->id }}" title="Show Details"><i class="fa fa-id-card-o" aria-hidden="true"></i></a>
+                      <a href="/admin/orders/{{ $row->id }}/edit" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                      <a href="javascript:void(0)" title="Delete" onclick="setDelete('/admin/orders/{{ $row->id }}')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                     </td>
                   </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Saudi Arabia</td>
-                    <td>SA</td>
-                    <td>SAR</td>
-                    <td class="has-action">
-                      <a href="#" title="Show Details"><i class="fa fa-id-card-o" aria-hidden="true"></i></a>
-                      <a href="#" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                      <a href="javascript:void(0)" title="Delete" onclick="setDelete('url')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                    </td>
-                  </tr>
+                @endforeach
                 </tbody>
               </table>
+            @else
+              <div class="alert alert-warning">
+                You don't have any data here
+              </div>
+            @endif
           </div>
         </div>
       </div>
@@ -89,18 +92,18 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</h4>
+        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-trash-o" aria-hidden="true"></i> حذف</h4>
       </div>
       <div class="modal-body">
-        Are you sure you want to delete this record ?
+        هل تريد تأكيد حذف السجل ؟
         <form id="DeleteForm" action="" method="post">
           {{ csrf_field() }}
           {{ method_field('DELETE') }}
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" onclick="$('#DeleteForm').submit()"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Delete</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">إلغاء الامر</button>
+        <button type="button" class="btn btn-danger" onclick="$('#DeleteForm').submit()"><i class="fa fa-times-circle-o" aria-hidden="true"></i> حذف</button>
       </div>
     </div>
   </div>

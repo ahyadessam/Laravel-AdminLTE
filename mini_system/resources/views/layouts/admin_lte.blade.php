@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="{{ asset('admin-lte/lib/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin-lte/lib/bootstrap-fileinput/css/fileinput.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin-lte/lib/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css') }}">
 
   @if(App::getLocale() == 'ar')
   <link rel="stylesheet" href="{{ asset('admin-lte/css/AdminLTE-rtl.min.css') }}">
@@ -80,6 +81,7 @@
   <script src="{{ asset('admin-lte/lib/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
   <!-- Slimscroll -->
   <script src="{{ asset('admin-lte/lib/slimScroll/jquery.slimscroll.min.js') }}"></script>
+  <script src="{{ asset('admin-lte/lib/bootstrap-switch/dist/js/bootstrap-switch.min.js') }}"></script>
   <!-- FastClick -->
   <script src="{{ asset('admin-lte/lib/fastclick/fastclick.js') }}"></script>
   <script src="{{ asset('admin-lte/lib/iCheck/icheck.min.js') }}"></script>
@@ -402,7 +404,7 @@
                 </button>
               </span>
         </div>
-      </form> 
+      </form>
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
@@ -700,9 +702,11 @@
     'showUpload':false
   });
 @endif
+
+$(".switch").bootstrapSwitch();
 </script>
 
-@yield('javascript');
+@yield('javascript')
 
 </body>
 </html>

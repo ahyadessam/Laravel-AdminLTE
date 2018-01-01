@@ -629,7 +629,7 @@
 </div>
 <!-- ./wrapper -->
 
-@yield('javascript');
+@yield('javascript')
 
 </body>
 </html>
