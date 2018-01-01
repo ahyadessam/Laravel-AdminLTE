@@ -19,8 +19,8 @@ Route::get('/', function () {
 route::get('admin/login', "AdminController@login")->name('adminLogin');
 route::post('admin/login', "AdminController@loginAuth")->name('adminAuth');
 
-Route::group(['middleware' => 'userAuth'], function(){
-  route::get('admin', "AdminController@dashboard");
-  Route::resource('admin/groups', 'GroupsController');
-  Route::resource('admin/admins', 'AdminController');
+Route::group(['prefix' => 'admin', 'middleware' => 'userAuth'], function(){
+  route::get('/', "AdminController@dashboard");
+  Route::resource('groups', 'GroupsController');
+  Route::resource('admins', 'AdminController');
 });
