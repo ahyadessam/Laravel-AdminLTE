@@ -103,7 +103,7 @@ class CountryController extends Controller
         'currency_ar'  => 'required',
       ]);
 
-      $user->update($request->all());
+      $row->update($request->all());
 
       Session::flash('success', 'Modified successfully');
       return redirect('/admin/country/'.$id.'/edit');

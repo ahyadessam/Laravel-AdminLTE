@@ -17,3 +17,16 @@
 .sidebar-menu {
   padding-bottom: 50px !important;
 }
+select.form-control {
+  padding: 3px 12px;
+}
+.crud-group>div, .crud-row>div {
+  margin-bottom: 25px;
+}
+.crud-row label {
+  padding: 0 5px;
+}
+.crud-row #created_at span, .crud-row #updated_at span {
+  direction: ltr;
+  display: inline-block;
+}

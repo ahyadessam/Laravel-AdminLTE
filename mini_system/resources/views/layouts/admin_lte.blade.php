@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>@yield('page_title', 'Laravel AdminLTE')</title>
+  <title>@yield('page_title', 'AdminPanel | Ahyad')</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -101,9 +101,9 @@
     <!-- Logo -->
     <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini">LA</span>
+      <span class="logo-mini">MM</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Laravel AdminLTE</b></span>
+      <span class="logo-lg"><b>Msh Msh</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -484,7 +484,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.3
     </div>
-    <strong>Copyright &copy; 2017 <a href="http://ahyad.com">Eng. Ahyad Essam</a>.</strong> All rights
+    <strong>Copyright &copy; 2018 <a href="http://ahyad.com">Ahyad Essam</a>.</strong> All rights
     reserved.
   </footer>
 
@@ -690,20 +690,39 @@
 <script src="{{ asset('admin-lte/js/demo.js') }}"></script>
 
 <script>
-@if(App::getLocale() == 'ar')
-  $('input[type=file]').fileinput({
-    'hiddenThumbnailContent':true,
-    'showUpload':false,
-    'language': 'ar'
-  });
-@else
-  $('input[type=file]').fileinput({
-    'hiddenThumbnailContent':true,
-    'showUpload':false
-  });
-@endif
+$('input[type=file]').each(function(){
+  if($(this).attr('data-img') != undefined && $(this).attr('data-img') != ''){
+    $(this).fileinput({
+      'hiddenThumbnailContent':true,
+      'showUpload':false,
+      minFileCount: 0,
+      maxFileCount: 1,
+      @if(App::getLocale() == 'ar')
+        'language': 'ar',
+      @endif
+      initialPreview: [$(this).attr('data-img')],
+      initialPreviewAsData: true,
+      initialPreviewFileType: 'image'
+    });
+  }else{
+    $(this).fileinput({
+      'hiddenThumbnailContent':true,
+      'showUpload':false,
+      minFileCount: 0,
+      @if(App::getLocale() == 'ar')
+      'language': 'ar',
+      @endif
+      maxFileCount: 1
+    });
+  }
+});
 
 $(".switch").bootstrapSwitch();
+
+$('.datepicker').datepicker({
+  autoclose: true,
+  format: 'yyyy-mm-dd'
+});
 </script>
 
 @yield('javascript')
