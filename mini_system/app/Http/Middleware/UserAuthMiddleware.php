@@ -19,7 +19,7 @@ class UserAuthMiddleware
      */
     public function handle($request, Closure $next)
     {
-      if(Auth::check()){
+      if(Auth::check() && Auth::user()->user_type == "admin"){
         $group = Group::find(Auth::user()->group_id);
         if($group)
           Auth::user()->permissions = $group->permissions;

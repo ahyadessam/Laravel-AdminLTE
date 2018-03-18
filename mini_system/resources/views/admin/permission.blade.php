@@ -5,7 +5,7 @@
   Groups
 </h1>
 <ol class="breadcrumb">
-  <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+  <li><a href="{{ url('admin') }}"><i class="fa fa-dashboard"></i> Home</a></li>
   <li class="active">Groups</li>
 </ol>
 @endsection

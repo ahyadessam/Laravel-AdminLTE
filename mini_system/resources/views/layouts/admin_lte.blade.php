@@ -101,9 +101,9 @@
     <!-- Logo -->
     <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini">MM</span>
+      <span class="logo-mini">AP</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Msh Msh</b></span>
+      <span class="logo-lg"><b>Admin Panel</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -356,13 +356,13 @@
                 </div>
                 <div class="pull-right">
                   <!-- a href="/logout" class="btn btn-default btn-flat">Sign out</a -->
-                  <a href="/logout" class="btn btn-default btn-flat"
+                  <a href="{{ url('logout') }}" class="btn btn-default btn-flat"
                       onclick="event.preventDefault();
                                document.getElementById('logout-form').submit();">
                       Sign out
                   </a>
 
-                  <form id="logout-form" action="/logout" method="POST" style="display: none;">
+                  <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
                       {{ csrf_field() }}
                   </form>
                 </div>
@@ -428,7 +428,7 @@
           if(!empty($menu['submenu'])){
             ?>
             <li class="treeview">
-              <a href="<?php echo $menu['link'] ?>">
+              <a href="<?php echo url($menu['link']) ?>">
                 <?php echo $menu['icon'] ?>
                 <span><?php echo $menu['title'][$admin_lang] ?></span>
                 <span class="pull-right-container">
@@ -449,7 +449,7 @@
 
                   }
                   ?>
-                  <li><a href="<?php echo $submenu['link']; ?>"><?php echo $submenu['icon'].' '.$submenu['title'][$admin_lang] ?></a></li>
+                  <li><a href="<?php echo url($submenu['link']); ?>"><?php echo $submenu['icon'].' '.$submenu['title'][$admin_lang] ?></a></li>
                   <?php
                 }
                 ?>
@@ -458,7 +458,7 @@
             <?php
           }else{
             ?>
-            <li><a href="<?php echo $menu['link']; ?>"><?php echo $menu['icon']; ?> <span><?php echo $menu['title'][$admin_lang]; ?></span></a></li>
+            <li><a href="<?php echo url($menu['link']); ?>"><?php echo $menu['icon']; ?> <span><?php echo $menu['title'][$admin_lang]; ?></span></a></li>
             <?php
           }
         }

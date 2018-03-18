@@ -1,6 +1,7 @@
 <?php
 
 return [
+  //admin
   [
     'link'        => '/admin',
     'title'       => [
@@ -11,7 +12,7 @@ return [
     'permission'  => '',
     'submenu'     => []
   ],
-
+  //general settings
   [
     'link'        => '#',
     'title'       => [
@@ -21,6 +22,7 @@ return [
     'icon'        => '<i class="fa fa-cogs"></i>',
     'permission'  => ['admins', 'groups'],
     'submenu'     => [
+      //administrators
       [
         'link'        => '/admin/admins',
         'title'       => [
@@ -31,7 +33,7 @@ return [
         'permission'  => 'admins',
         'submenu'     => []
       ],
-      
+      //groups
       [
         'link'        => '/admin/groups',
         'title'       => [

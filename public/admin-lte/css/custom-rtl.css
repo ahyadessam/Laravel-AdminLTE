@@ -16,3 +16,12 @@ body {
   border-bottom-left-radius: 4px !important;
   border-top-left-radius: 4px !important;
 }
+.datepicker-dropdown {
+  right: auto;
+}
+.input-group .form-control:last-child.datepicker {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+}

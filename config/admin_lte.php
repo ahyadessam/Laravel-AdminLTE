@@ -1,8 +1,9 @@
 <?php
 
 return [
+  //dashboard
   [
-    'link'        => '#',
+    'link'        => '/admin',
     'title'       => [
       'en'        => 'dashboard',
       'ar'        => 'اللوحة الرئيسية'
@@ -11,24 +12,36 @@ return [
     'permission'  => '',
     'submenu'     => []
   ],
-
+  //general settings
   [
     'link'        => '#',
     'title'       => [
-      'en'        => 'Settings',
-      'ar'        => 'الإعدادات'
+      'en'        => 'General settings',
+      'ar'        => 'الإعدادات العامة'
     ],
     'icon'        => '<i class="fa fa-cogs"></i>',
-    'permission'  => '',
+    'permission'  => ['admins', 'groups'],
     'submenu'     => [
+      //admins
       [
-        'link'        => '#',
+        'link'        => '/admin/admins',
         'title'       => [
           'en'        => 'Adminstrators',
           'ar'        => 'مديرين الموقع'
         ],
         'icon'        => '<i class="fa fa-user-secret"></i>',
-        'permission'  => '',
+        'permission'  => 'admins',
+        'submenu'     => []
+      ],
+      //groups
+      [
+        'link'        => '/admin/groups',
+        'title'       => [
+          'en'        => 'Groups',
+          'ar'        => 'المجموعات'
+        ],
+        'icon'        => '<i class="fa fa-users"></i>',
+        'permission'  => 'groups',
         'submenu'     => []
       ],
     ]

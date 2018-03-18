@@ -6,8 +6,8 @@
   <small>Show</small>
 </h1>
 <ol class="breadcrumb">
-  <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-  <li><a href="/admin/groups"><i class="fa fa-users"></i> Groups</a></li>
+  <li><a href="{{ url('admin') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+  <li><a href="{{ url('admin/groups') }}"><i class="fa fa-users"></i> Groups</a></li>
   <li class="active">show</li>
 </ol>
 @endsection

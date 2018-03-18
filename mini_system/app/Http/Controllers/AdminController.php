@@ -15,7 +15,7 @@ class AdminController extends Controller
     }
 
     public function login(){
-      if(Auth::check())
+      if(Auth::check() && Auth::user()->user_type == "admin")
         return redirect('/admin');
 
       return view('admin.login');

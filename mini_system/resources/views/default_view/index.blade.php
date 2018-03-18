@@ -15,7 +15,7 @@
   <small>{{ __('adminlte.view_list') }}</small>
 </h1>
 <ol class="breadcrumb">
-  <li><a href="/admin"><i class="fa fa-dashboard"></i> {{ __('adminlte.home') }}</a></li>
+  <li><a href="{{ url('admin') }}"><i class="fa fa-dashboard"></i> {{ __('adminlte.home') }}</a></li>
   <li class="active">{{ $title }}</li>
 </ol>
 @endsection

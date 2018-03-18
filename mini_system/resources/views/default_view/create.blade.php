@@ -6,7 +6,7 @@
   <small>{{ __('adminlte.create') }}</small>
 </h1>
 <ol class="breadcrumb">
-  <li><a href="/admin"><i class="fa fa-dashboard"></i> {{ __('adminlte.home') }}</a></li>
+  <li><a href="{{ url('admin') }}"><i class="fa fa-dashboard"></i> {{ __('adminlte.home') }}</a></li>
   <li><a href="{{ $route_link }}">{!! $icon.' '.$title !!}</a></li>
   <li class="active">{{ __('adminlte.create') }}</li>
 </ol>

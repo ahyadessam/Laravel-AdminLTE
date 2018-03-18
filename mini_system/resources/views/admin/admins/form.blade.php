@@ -6,8 +6,8 @@
   <small>{{ $action == 'add'? 'Create':'Edit' }}</small>
 </h1>
 <ol class="breadcrumb">
-  <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-  <li><a href="/admin/admins"><i class="fa fa-dashboard"></i> Adminstrators</a></li>
+  <li><a href="{{ url('admin') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+  <li><a href="{{ url('admin/admins') }}"><i class="fa fa-dashboard"></i> Adminstrators</a></li>
   <li class="active">{{ $action == 'add'? 'Create':'Edit' }}</li>
 </ol>
 @endsection
@@ -24,7 +24,7 @@
           <div class="col-sm-8 col-sm-offset-2 col-xs-12">
             @include('widgets.errors')
             @include('widgets.success')
-            <form  action="{{ ($action == 'add')? '/admin/admins' : '/admin/admins/'.$user->id }}" method="post" role="form" class="form-horizontal img-width" enctype="multipart/form-data">
+            <form  action="{{ url('admin/admins') }}{{ ($action == 'add')? '/' : '/'.$user->id }}" method="post" role="form" class="form-horizontal img-width" enctype="multipart/form-data">
               @if($action == 'edit')
                 {{ method_field('PUT') }}
               @endif

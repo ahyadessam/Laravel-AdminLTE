@@ -12,7 +12,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function _checkPerm($perm=''){
-      if(!in_array($perm, Auth::user()->permissions)){
+      if(!in_array($perm, \Auth::user()->permissions)){
         echo view('admin.permission');
         exit;
       }

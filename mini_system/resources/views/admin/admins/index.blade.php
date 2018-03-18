@@ -15,7 +15,7 @@
   <small>List</small>
 </h1>
 <ol class="breadcrumb">
-  <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+  <li><a href="{{ url('admin') }}"><i class="fa fa-dashboard"></i> Home</a></li>
   <li class="active">Adminstrators</li>
 </ol>
 @endsection
@@ -30,7 +30,7 @@
       <div class="box-body">
         <div class="row">
           <div class="col-xs-12 text-right">
-            <a href="/admin/admins/create" class="btn btn-success create-btn"><i class="fa fa-plus" aria-hidden="true"></i> Create Adminstrator</a>
+            <a href="{{ url('admin/admins/create') }}" class="btn btn-success create-btn"><i class="fa fa-plus" aria-hidden="true"></i> Create Adminstrator</a>
           </div>
         </div>
         <div class="row">
@@ -60,9 +60,9 @@
                     <td>{{ $user->email }}</td>
                     <td><?php echo $user->groups->{'name_'.Session::get('admin_lang')}; ?></td>
                     <td class="has-action">
-                      <a href="/admin/admins/{{ $user->id }}" title="Show Details"><i class="fa fa-id-card-o" aria-hidden="true"></i></a>
-                      <a href="/admin/admins/{{ $user->id }}/edit" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                      <a href="javascript:void(0)" title="Delete" onclick="setDelete('/admin/admins/{{ $user->id }}')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                      <a href="{{ url('admin/admins/'.$user->id) }}" title="Show Details"><i class="fa fa-id-card-o" aria-hidden="true"></i></a>
+                      <a href="{{ url('admin/admins/'.$user->id.'/edit') }}" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                      <a href="javascript:void(0)" title="Delete" onclick="setDelete('{{ url('admin/admins/'.$user->id) }}')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                     </td>
                   </tr>
                   @endforeach

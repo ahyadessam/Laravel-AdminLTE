@@ -76,7 +76,9 @@ trait DefaultController {
   protected $_variables_edit  = [];
 
   public function __construct(){
-
+    if(Session::has('admin_lang')){
+      \App::setLocale(Session::get('admin_lang'));
+    }
   }
 
   public function index(){
@@ -85,7 +87,7 @@ trait DefaultController {
 
     $title        = $this->_title;
     $icon         = $this->_icon;
-    $route_link   = $this->_route_link;
+    $route_link   = url($this->_route_link);
     $columns      = $this->_columns;
     $create       = $this->_allow_create;
     $read         = $this->_allow_read;
@@ -138,7 +140,7 @@ trait DefaultController {
 
     $title        = $this->_title;
     $icon         = $this->_icon;
-    $route_link   = $this->_route_link;
+    $route_link   = url($this->_route_link);
     $fields       = $this->_fields;
     $view_name    = $this->_view;
 
@@ -189,7 +191,7 @@ trait DefaultController {
     $row = $this->_model::create($fields);
 
     Session::flash('success', __('adminlte.created_success'));
-    return redirect($this->_route_link);
+    return redirect(url($this->_route_link));
   }
 
   public function show($id)
@@ -208,7 +210,7 @@ trait DefaultController {
 
     $title        = $this->_title;
     $icon         = $this->_icon;
-    $route_link   = $this->_route_link;
+    $route_link   = url($this->_route_link);
     $fields       = array_merge($this->_fields, $this->_show_fields);
     $view_name    = $this->_view;
     $update_path  = $this->_upload_path;
@@ -240,7 +242,7 @@ trait DefaultController {
 
     $title        = $this->_title;
     $icon         = $this->_icon;
-    $route_link   = $this->_route_link;
+    $route_link   = url($this->_route_link);
     $fields       = $this->_fields;
     $view_name    = $this->_view;
     $update_path  = $this->_upload_path;
@@ -301,7 +303,7 @@ trait DefaultController {
     $row->update($fields);
 
     Session::flash('success', __('adminlte.modified_success'));
-    return redirect($this->_route_link.'/'.$id.'/edit');
+    return redirect(url($this->_route_link.'/'.$id.'/edit'));
   }
 
   public function destroy($id)
@@ -321,6 +323,6 @@ trait DefaultController {
     $delete->delete();
 
     Session::flash('success', __('adminlte.del_success'));
-    return redirect($this->_route_link);
+    return redirect(url($this->_route_link));
   }
 }
