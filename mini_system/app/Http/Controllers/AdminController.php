@@ -7,6 +7,7 @@ use Auth;
 use Session;
 use App\user;
 use App\group;
+use Hash;
 
 class AdminController extends Controller
 {
@@ -79,7 +80,7 @@ class AdminController extends Controller
 
         $user = User::create([
           'user_type'   => 'admin',
-          'password'    => $request->password,
+          'password'    => Hash::make($request->password),
           'name'        => $request->name,
           'email'       => $request->email,
           'group_id'    => $request->group_id,
@@ -140,7 +141,7 @@ class AdminController extends Controller
         ];
 
         if($request->password)
-          $update['password'] = $request->password;
+          $update['password'] = Hash::make($request->password);
 
         $user->update($update);
         Session::flash('success', 'adminstrator edit successfully');

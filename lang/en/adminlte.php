@@ -15,4 +15,6 @@ return [
   'created_success'   => 'Created successfully',
   'modified_success'  => 'Modified successfully',
   'del_success'       => 'Deleted successfully',
+  'error_log'         => 'Error Logs',
+  'log_not_found'     => 'Log file not found',
 ];

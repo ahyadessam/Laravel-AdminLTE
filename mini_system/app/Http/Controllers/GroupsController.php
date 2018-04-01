@@ -18,6 +18,14 @@ class GroupsController extends Controller
           'en'  => 'Groups',
           'ar'  => 'المجموعات'
         ],
+        'settings' => [
+          'en'  => 'Settings',
+          'ar'  => 'الإعدادات'
+        ],
+        'error_logs' => [
+          'en'  => 'Error Logs',
+          'ar'  => 'سجلات الأخطاء'
+        ],
       ];
     }
 

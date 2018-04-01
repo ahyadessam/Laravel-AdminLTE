@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Hash;
 
 class User extends Authenticatable
 {
@@ -27,10 +26,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    public function setPasswordAttribute($value){
-      $this->attributes['password'] = Hash::make($value);
-    }
 
     public function groups(){
       return $this->hasOne('App\Group', 'id', 'group_id');

@@ -15,4 +15,6 @@ return [
   'created_success'   => 'تم الإضافة بنجاح',
   'modified_success'  => 'تم التعديل بنجاح',
   'del_success'       => 'تم الحذف بنجاح',
+  'error_log'         => 'سجلات الأخطاء',
+  'log_not_found'     => 'لم يتم العثور على ملف الأخطاء',
 ];

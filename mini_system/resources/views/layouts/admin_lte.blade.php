@@ -370,9 +370,9 @@
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-          <li>
+          <!-- li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
+          </li -->
         </ul>
       </div>
     </nav>
@@ -690,7 +690,7 @@
 <script src="{{ asset('admin-lte/js/demo.js') }}"></script>
 
 <script>
-$('input[type=file]').each(function(){
+$('input[type=file]').not('.custom-file').each(function(){
   if($(this).attr('data-img') != undefined && $(this).attr('data-img') != ''){
     $(this).fileinput({
       'hiddenThumbnailContent':true,

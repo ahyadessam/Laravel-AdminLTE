@@ -30,3 +30,9 @@ select.form-control {
   direction: ltr;
   display: inline-block;
 }
+.table-responsive {
+  padding: 15px;
+}
+.setting-table img {
+  max-width: 100px;
+}

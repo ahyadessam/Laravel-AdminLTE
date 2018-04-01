@@ -1,21 +1,12 @@
 @extends('layouts.admin_lte')
 
-@section('css-files')
-<link rel="stylesheet" href="{{ asset('admin-lte/lib/datatables/dataTables.bootstrap.css') }}">
-@endsection
-
-@section('js-files')
-<script src="{{ asset('admin-lte/lib/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('admin-lte/lib/datatables/dataTables.bootstrap.min.js') }}"></script>
-@endsection
-
 @section('content-header')
 <h1>
   {!! $icon.' '.$title !!}
   <small>{{ __('adminlte.view_list') }}</small>
 </h1>
 <ol class="breadcrumb">
-  <li><a href="{{ url('admin') }}"><i class="fa fa-dashboard"></i> {{ __('adminlte.home') }}</a></li>
+  <li><a href="/admin"><i class="fa fa-dashboard"></i> {{ __('adminlte.home') }}</a></li>
   <li class="active">{{ $title }}</li>
 </ol>
 @endsection
@@ -43,32 +34,53 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-10 col-sm-offset-1 col-xs-12">
+          <div class="col-sm-10 col-sm-offset-1 col-xs-12 table-responsive">
             @if($rows && count($columns))
-              <div class="table-responsive">
-                <table id="usersTable" class="table table-bordered table-striped" data-order='[[ 0, "desc" ]]' data-page-length='{{ $rows_per_page }}'>
-                  <thead>
-                    <tr>
-                      <?php
-                      foreach($columns As $key=>$val){
-                        $label = (isset($val['label']))? $val['label'] : $key;
-                        echo '<th>'.ucfirst($label).'</th>';
-                      }
-                      ?>
-                      <th>{{ __('adminlte.actions') }}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach($rows As $row)
+              <table id="usersTable" class="table table-bordered table-striped setting-table" data-order='[[ 0, "desc" ]]' data-page-length='25'>
+                <thead>
+                  <tr>
+                    <?php
+                    foreach($columns As $key=>$val){
+                      $label = (isset($val['label']))? $val['label'] : $key;
+                      echo '<th>'.ucfirst($label).'</th>';
+                    }
+                    ?>
+                    <th>{{ __('adminlte.actions') }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach($rows As $row)
                     <tr>
                       @foreach($columns As $key=>$val)
-                      <td>
-                        @if(isset($val['value']))
-                        {!! eval("echo ".$val['value'].";") !!}
-                        @else
-                        {{ $row->{$key} }}
-                        @endif
-                      </td>
+                        <td>
+                          @if($key == 'value' && isset($fields[$row->key]))
+                            <?php
+                            $field_row = $fields[$row->key];
+                            if(isset($field_row['type']) && $field_row['type'] == 'select'){
+                              if(isset($field_row['select_data']) && isset($field_row['select_data'][$row->{$key}]))
+                                echo $field_row['select_data'][$row->{$key}];
+                              else
+                                echo $row->{$key};
+                            }else if(isset($field_row['type']) && $field_row['type'] == 'file' && $row->{$key}){
+                                echo '<img src="'.url($update_path.'/'.$row->{$key}).'" class="img-responsive img-thumbnail" />';
+                            }else if(isset($field_row['type']) && $field_row['type'] == 'checkbox'){
+                              if($row->{$key}){
+                                echo '<i class="fa fa-check-circle-o"></i>';
+                              }else{
+                                echo '<i class="fa fa-times-circle-o"></i>';
+                              }
+                            }else{
+                              echo $row->{$key};
+                            }
+                            ?>
+                          @else
+                            @if(isset($val['value']))
+                              {!! eval("echo ".$val['value'].";") !!}
+                            @else
+                              {{ $row->{$key} }}
+                            @endif
+                          @endif
+                        </td>
                       @endforeach
                       <td class="has-action">
                         @if($read)
@@ -82,9 +94,14 @@
                         @endif
                       </td>
                     </tr>
-                    @endforeach
-                  </tbody>
-                </table>
+                  @endforeach
+                </tbody>
+              </table>
+
+              <div class="row">
+                <div class="col-xs-12">
+                  {{ $rows->links() }}
+                </div>
               </div>
             @else
               <div class="alert alert-warning">
@@ -129,9 +146,5 @@
     $('#myModal').modal('show');
     return false;
   }
-
-  $(function () {
-    $("#usersTable").DataTable();
-  });
 </script>
 @endsection

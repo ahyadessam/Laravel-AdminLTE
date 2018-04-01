@@ -44,6 +44,28 @@ return [
         'permission'  => 'groups',
         'submenu'     => []
       ],
+      //settings
+      [
+        'link'        => '/admin/settings',
+        'title'       => [
+          'en'        => 'Settings',
+          'ar'        => 'الإعدادات'
+        ],
+        'icon'        => '<i class="fa fa-cog"></i>',
+        'permission'  => 'settings',
+        'submenu'     => []
+      ],
+      //error loga
+      [
+        'link'        => '/admin/error_logs',
+        'title'       => [
+          'en'        => 'Error Logs',
+          'ar'        => 'سجلات الأخطاء'
+        ],
+        'icon'        => '<i class="fa fa-bug"></i>',
+        'permission'  => 'error_logs',
+        'submenu'     => []
+      ],
     ]
   ],
 ];
