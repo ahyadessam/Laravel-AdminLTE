@@ -28,6 +28,10 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin-lte/lib/bootstrap-fileinput/css/fileinput.min.css') }}">
   <link rel="stylesheet" href="{{ asset('admin-lte/lib/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css') }}">
+  <!-- include the core styles -->
+  <link rel="stylesheet" href="{{ asset('admin-lte/lib/alertify/themes/alertify.core.css') }}" />
+  <!-- include a theme, can be included into the core instead of 2 separate files -->
+  <link rel="stylesheet" href="{{ asset('admin-lte/lib/alertify/themes/alertify.default.css') }}" />
 
   @if(App::getLocale() == 'ar')
   <link rel="stylesheet" href="{{ asset('admin-lte/css/AdminLTE-rtl.min.css') }}">
@@ -85,6 +89,9 @@
   <!-- FastClick -->
   <script src="{{ asset('admin-lte/lib/fastclick/fastclick.js') }}"></script>
   <script src="{{ asset('admin-lte/lib/iCheck/icheck.min.js') }}"></script>
+  <!-- ideally at the bottom of the page -->
+  <!-- also works in the <head> -->
+  <script src="{{ asset('admin-lte/lib/alertify/lib/alertify.min.js') }}"></script>
 
   <script src="{{ asset('admin-lte/lib/bootstrap-fileinput/js/fileinput.min.js') }}"></script>
   @if(App::getLocale() == 'ar')
@@ -108,7 +115,7 @@
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
       <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
 
@@ -352,14 +359,14 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{ url('admin/profile') }}" class="btn btn-default btn-flat">{{ __('adminlte.profile') }}</a>
                 </div>
                 <div class="pull-right">
                   <!-- a href="/logout" class="btn btn-default btn-flat">Sign out</a -->
                   <a href="{{ url('logout') }}" class="btn btn-default btn-flat"
                       onclick="event.preventDefault();
                                document.getElementById('logout-form').submit();">
-                      Sign out
+                      {{ __('adminlte.logout') }}
                   </a>
 
                   <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
@@ -385,7 +392,7 @@
       <div class="user-panel">
         <div class="pull-left image">
           @if(Auth::user() && Auth::user()->avatar)
-            <img src="{{ url('uploads/users/'.Auth::user()->avatar) }}" class="img-circle" alt="User Image">
+            <img src="{{ url('uploads/users/'.Auth::user()->avatar) }}" class="img-rounded" alt="User Image">
           @else
             <img src="{{ asset('admin-lte/img/user-icon.png') }}" class="img-circle" alt="User Image">
           @endif
@@ -415,6 +422,9 @@
 
         foreach($admin_menus As $menu){
           if(!empty($menu['permission'])){
+            if(!Auth::user()->permissions)
+              continue;
+
             if(is_array($menu['permission'])){
               if(!array_intersect($menu['permission'], Auth::user()->permissions))
                 continue;

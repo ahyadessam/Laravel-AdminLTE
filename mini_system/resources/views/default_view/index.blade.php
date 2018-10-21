@@ -2,11 +2,19 @@
 
 @section('css-files')
 <link rel="stylesheet" href="{{ asset('admin-lte/lib/datatables/dataTables.bootstrap.css') }}">
+<link rel="stylesheet" href="{{ asset('admin-lte/lib/datatables/extensions/Buttons/css/buttons.dataTables.min.css') }}">
 @endsection
 
 @section('js-files')
 <script src="{{ asset('admin-lte/lib/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('admin-lte/lib/datatables/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('admin-lte/lib/datatables/extensions/Buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('admin-lte/lib/datatables/extensions/Buttons/js/buttons.flash.min.js') }}"></script>
+<script src="{{ asset('admin-lte/lib/datatables/extensions/JSZip/jszip.min.js') }}"></script>
+<!-- script src="{{ asset('admin-lte/lib/datatables/extensions/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('admin-lte/lib/datatables/extensions/pdfmake/vfs_fonts.js') }}"></script -->
+<script src="{{ asset('admin-lte/lib/datatables/extensions/Buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('admin-lte/lib/datatables/extensions/Buttons/js/buttons.print.min.js') }}"></script>
 @endsection
 
 @section('content-header')
@@ -131,7 +139,12 @@
   }
 
   $(function () {
-    $("#usersTable").DataTable();
+    $("#usersTable").DataTable({
+      dom: 'Bfrtip',
+      buttons: [
+          'copy', 'excel', 'print' // 'pdf'
+      ]
+    });
   });
 </script>
 @endsection

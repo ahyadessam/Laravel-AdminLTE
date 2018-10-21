@@ -57,6 +57,8 @@
             echo '<input type="file" name="'.$key.'" value="" data-img="'.$data_img.'" />';
           }else if($input_type == 'checkbox'){
             echo Form::checkbox($key, (!empty($input_data))? $input_data : '1', $input_value, array_merge(['class' => $input_class], $input_attributes));
+          }else if($input_type == 'password'){
+            echo Form::{$input_type}($key, array_merge(['class' => $input_class], $input_attributes));
           }else{
             echo Form::{$input_type}($key, $input_value, array_merge(['class' => $input_class], $input_attributes));
           }

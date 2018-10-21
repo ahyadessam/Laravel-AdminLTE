@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use Session;
-use App\user;
-use App\group;
+use App\User;
+use App\Group;
 use Hash;
 
 class AdminController extends Controller

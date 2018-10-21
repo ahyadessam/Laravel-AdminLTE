@@ -14,9 +14,9 @@ class AlterUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-          $table->string('user_type', 15)->default('user');
-          $table->integer('group_id')->default(0);
-          $table->string('avatar', 30)->nullable();
+          $table->string('user_type', 15)->default('user')->after('id');
+          $table->integer('group_id')->default(0)->after('user_type');
+          $table->string('avatar', 30)->nullable()->after('name');
         });
     }
 

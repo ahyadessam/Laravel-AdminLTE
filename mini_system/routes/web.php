@@ -23,6 +23,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'userAuth'], function(){
   route::get('/', "AdminController@dashboard");
   Route::resource('groups', 'GroupsController');
   Route::resource('admins', 'AdminController');
+  Route::resource('settings', 'SettingsController');
   Route::get('error_logs', 'ErrorLogsReprot@index');
   Route::post('delete_logs', 'ErrorLogsReprot@delete');
+  Route::get('profile', 'ProfileController@edit');
+  Route::put('profile/{id}', 'ProfileController@update');
 });

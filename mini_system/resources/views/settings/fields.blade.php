@@ -51,8 +51,8 @@
             echo Form::select($key, $input_data, $input_value, array_merge(['class' => $input_class], $input_attributes));
           }else if($input_type == 'file'){
             $data_img = '';
-            if(isset($row) && $row->{$key}){
-              $data_img = url($update_path.'/'.$row->{$key});
+            if(isset($row) && $row->value){
+              $data_img = url($update_path.'/'.$row->value);
             }
             echo '<input type="file" name="'.$key.'" class="'.$input_class.'" value="" data-img="'.$data_img.'" />';
           }else if($input_type == 'checkbox'){

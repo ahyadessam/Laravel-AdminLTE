@@ -90,7 +90,7 @@ class CustomerController extends Controller
 
     $this->_show_fields = [
       'created_at'  => [
-        'label'     => 'Created At',
+        'label'     => __('adminlte.created_date'),
         'value'   => '$row->created_at->format("Y-m-d h:i:s a")',
       ]
     ];

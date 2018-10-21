@@ -182,6 +182,9 @@ trait DefaultController {
           $fields[$key] = 0;
         else
           $fields[$key] = $request->{$key};
+      }else if(isset($val['type']) && $val['type'] == 'password'){
+        if(isset($request->{$key}) && !empty($request->{$key}))
+          $fields[$key] = \Hash::make($request->{$key});
       }else if(isset($request->{$key})){
         $fields[$key] = $request->{$key};
       }
@@ -293,6 +296,9 @@ trait DefaultController {
           $fields[$key] = 0;
         else
           $fields[$key] = $request->{$key};
+      }else if(isset($val['type']) && $val['type'] == 'password'){
+        if(isset($request->{$key}) && !empty($request->{$key}))
+          $fields[$key] = \Hash::make($request->{$key});
       }else if(isset($request->{$key})){
         $fields[$key] = $request->{$key};
       }
