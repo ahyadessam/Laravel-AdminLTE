@@ -45,17 +45,18 @@
               <div class="form-group">
                 <label class="control-label col-sm-3 col-xs-12">Permissions :</label>
                 <div class="col-sm-9 col-xs-12">
-                  <table class="table table-striped">
-                    <?php $old_perm = old('permissions'); ?>
-                    @foreach($perm As $key=>$val)
-                    <tr>
-                      <th><label for="per_{{ $key }}">{{ $val[Session::get('admin_lang')] }}</label></th>
-                      <td>
-                        <input type="checkbox" name="permissions[]" id="per_{{ $key }}" class="minimal" value="{{ $key }}" {{ (($old_perm && in_array($key, $old_perm)) || (isset($row_perm) && in_array($key, $row_perm)))? 'checked' : '' }} >
-                      </td>
-                    </tr>
-                    @endforeach
-                  </table>
+                  <div class="row">
+                      <?php $old_perm = old('permissions'); ?>
+                      @foreach($perm As $key=>$val)
+                      <div class="col-sm-6 col-xs-12">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox" name="permissions[]" id="per_{{ $key }}" class="minimal" value="{{ $key }}" {{ (($old_perm && in_array($key, $old_perm)) || (isset($row_perm) && in_array($key, $row_perm)))? 'checked' : '' }} > {{ $val[Session::get('admin_lang')] }}
+                          </label>
+                        </div>
+                      </div>
+                      @endforeach
+                    </div>
                 </div>
               </div>
               <div class="form-group">

@@ -24,22 +24,23 @@ class ErrorLogsReprot extends Controller
   public function index(){
     $this->_checkPerm('error_logs');
 
-    $has_file = false;
     $logs = [];
-
-    if(file_exists(storage_path('logs/laravel.log'))){
-      $has_file = true;
-      $logs = file_get_contents(storage_path('logs/laravel.log'));
-      $logs_array = explode("\n", $logs);
-      $cleared = array_filter($logs_array);
-      $logs = array_reverse($cleared);
+    
+    if(!file_exists(storage_path('logs'.DIRECTORY_SEPARATOR.'laravel.log'))){
+      file_put_contents(storage_path('logs'.DIRECTORY_SEPARATOR.'laravel.log'), '');
     }
+    
+    $has_file = true;
+    $logs = file_get_contents(storage_path('logs'.DIRECTORY_SEPARATOR.'laravel.log'));
+    $logs_array = explode("\n", $logs);
+    $cleared = array_filter($logs_array);
+    $logs = array_reverse($cleared);
 
     return view('error_logs.index', compact(['has_file', 'logs']));
   }
 
   public function delete(Request $request){
-    $del = file_put_contents(storage_path('logs/laravel.log'), '');
-    return redirect(url('admin/error_logs'));
+    $del = file_put_contents(storage_path('logs'.DIRECTORY_SEPARATOR.'laravel.log'), '');
+    return redirect(url('admin'.DIRECTORY_SEPARATOR.'error_logs'));
   }
 }

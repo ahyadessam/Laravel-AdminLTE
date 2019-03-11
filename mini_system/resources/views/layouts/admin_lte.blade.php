@@ -420,6 +420,37 @@
         $admin_lang   = App::getLocale();
         $admin_menus  = config('admin_lte');
 
+        function fetchSubMenu($menu, $admin_lang){
+          $tags = '<li class="treeview">';
+          $tags .= '<a href="'.url($menu['link']).'">'.$menu['icon'];
+          $tags .= '<span>'.$menu['title'][$admin_lang].'</span>';
+          $tags .= '<span class="pull-right-container">';
+          $tags .= '<i class="fa fa-angle-left pull-right"></i>';
+          $tags .= '</span></a><ul class="treeview-menu">';
+          echo $tags;
+              
+              foreach($menu['submenu'] As $submenu){
+                if(!empty($submenu['permission'])){
+                  if(is_array($submenu['permission'])){
+                    if(!array_intersect($submenu['permission'], Auth::user()->permissions))
+                      continue;
+                  }else{
+                    if(!in_array($submenu['permission'], Auth::user()->permissions))
+                      continue;
+                  }
+
+                }
+
+                if(!empty($submenu['submenu'])){
+                  fetchSubMenu($submenu, $admin_lang);
+                }else{
+                  echo '<li><a href="'.url($submenu['link']).'">'.$submenu['icon'].' '.$submenu['title'][$admin_lang].'</a></li>';
+                }
+              }
+              
+            echo '</ul></li>';
+        }
+
         foreach($admin_menus As $menu){
           if(!empty($menu['permission'])){
             if(!Auth::user()->permissions)
@@ -436,36 +467,7 @@
           }
 
           if(!empty($menu['submenu'])){
-            ?>
-            <li class="treeview">
-              <a href="<?php echo url($menu['link']) ?>">
-                <?php echo $menu['icon'] ?>
-                <span><?php echo $menu['title'][$admin_lang] ?></span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <?php
-                foreach($menu['submenu'] As $submenu){
-                  if(!empty($submenu['permission'])){
-                    if(is_array($submenu['permission'])){
-                      if(!array_intersect($submenu['permission'], Auth::user()->permissions))
-                        continue;
-                    }else{
-                      if(!in_array($submenu['permission'], Auth::user()->permissions))
-                        continue;
-                    }
-
-                  }
-                  ?>
-                  <li><a href="<?php echo url($submenu['link']); ?>"><?php echo $submenu['icon'].' '.$submenu['title'][$admin_lang] ?></a></li>
-                  <?php
-                }
-                ?>
-              </ul>
-            </li>
-            <?php
+            fetchSubMenu($menu, $admin_lang);
           }else{
             ?>
             <li><a href="<?php echo url($menu['link']); ?>"><?php echo $menu['icon']; ?> <span><?php echo $menu['title'][$admin_lang]; ?></span></a></li>

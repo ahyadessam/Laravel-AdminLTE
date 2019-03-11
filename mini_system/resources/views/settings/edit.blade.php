@@ -50,7 +50,10 @@
       $('.set_hidden').attr('name', '');
       $('.set_hidden').closest('.col-sm-6').hide();
       $('.set_'+key).closest('.col-sm-6').show();
-      $('.set_'+key).attr('name', 'value');
+      if($('.set_'+key).attr('multiple') != undefined)
+        $('.set_'+key).attr('name', 'value[]');
+      else
+        $('.set_'+key).attr('name', 'value');
     }else{
       $('.set_hidden').attr('name', '');
       $('.set_hidden').closest('.col-sm-6').hide();

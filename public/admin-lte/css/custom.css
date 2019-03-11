@@ -36,3 +36,21 @@ select.form-control {
 .setting-table img {
   max-width: 100px;
 }
+.report-error-div .table-responsive {
+  height: 500px;
+}
+table.dataTable td {
+  white-space: nowrap;
+}
+.ajax-action-a {
+  display: inline-block;
+  color: #333;
+  margin: 0px 5px;
+}
+.crud-group .input-checkbox {
+  line-height: 57px;
+}
+#usersTable img, #myTable img {
+  max-width: 140px;
+  max-height: 200px;
+}

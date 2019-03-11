@@ -20,7 +20,7 @@ return [
       'ar'        => 'الإعدادات العامة'
     ],
     'icon'        => '<i class="fa fa-cogs"></i>',
-    'permission'  => ['admins', 'groups'],
+    'permission'  => ['admins', 'groups', 'settings', 'error_logs'],
     'submenu'     => [
       //administrators
       [

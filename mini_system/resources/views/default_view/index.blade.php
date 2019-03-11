@@ -63,7 +63,9 @@
                         echo '<th>'.ucfirst($label).'</th>';
                       }
                       ?>
-                      <th>{{ __('adminlte.actions') }}</th>
+                      @if($read || $update || $delete)
+                        <th>{{ __('adminlte.actions') }}</th>
+                      @endif 
                     </tr>
                   </thead>
                   <tbody>
@@ -72,12 +74,25 @@
                       @foreach($columns As $key=>$val)
                       <td>
                         @if(isset($val['value']))
-                        {!! eval("echo ".$val['value'].";") !!}
+                          {!! eval("echo ".$val['value'].";") !!}
                         @else
-                        {{ $row->{$key} }}
+                          @if(isset($val['type']) && $val['type'] == 'file')
+                            <?php 
+                            if(filter_var($row->{$key}, FILTER_VALIDATE_URL))
+                              $data_img = $row->{$key};
+                            else
+                              $data_img = url($update_path.'/'.$row->{$key});
+                            ?> 
+
+                            <img src="{{ $data_img }}" class="img-responsive img-thumbnail" />
+                          @else
+                            {{ $row->{$key} }}
+                          @endif
                         @endif
                       </td>
                       @endforeach
+
+                      @if($read || $update || $delete)
                       <td class="has-action">
                         @if($read)
                         <a href="{{ $route_link.'/'.$row->id }}" title="Show Details"><i class="fa fa-id-card-o" aria-hidden="true"></i></a>
@@ -89,6 +104,7 @@
                         <a href="javascript:void(0)" title="Delete" onclick="setDelete('{{ $route_link.'/'.$row->id }}')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                         @endif
                       </td>
+                      @endif 
                     </tr>
                     @endforeach
                   </tbody>

@@ -48,7 +48,22 @@
           <?php
         }else{
           if($input_type == 'select'){
-            echo Form::select($key, $input_data, $input_value, array_merge(['class' => $input_class], $input_attributes));
+            if(isset($row) && $row->is_array && $key != 'key'){
+              $input_value = explode(',', $row->value);
+              ?>
+              <select name="<?=$key?>" id="<?=$key?>" class="form-control set_hidden <?php echo 'set_'.$key; ?>" multiple>
+                <?php 
+                if($input_data){
+                  foreach($input_data As $ikey=>$ivalue){
+                    ?><option value="<?=$ikey?>"  <?php echo (in_array($ikey, $input_value))? 'selected="selected"' : '' ?> ><?=$ivalue?></option><?php
+                  }
+                }
+                ?>
+              </select>
+              <?php
+            }else{
+              echo Form::select($key, $input_data, $input_value, array_merge(['class' => $input_class], $input_attributes));
+            }
           }else if($input_type == 'file'){
             $data_img = '';
             if(isset($row) && $row->value){

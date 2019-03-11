@@ -136,6 +136,9 @@ class SettingsController extends Controller
         $fields['value'] = $img_name;
     }
 
+    if(is_array($request->value))
+      $fields['is_array'] = 1;
+
     $row = $this->_model::create($fields);
 
     Session::flash('success', __('adminlte.created_success'));
@@ -173,6 +176,11 @@ class SettingsController extends Controller
       if($image->move(public_path($this->_upload_path), $img_name))
         $fields['value'] = $img_name;
     }
+
+    if(is_array($request->value))
+      $fields['is_array'] = 1;
+    else
+      $fields['is_array'] = 0;
 
     $row->update($fields);
 

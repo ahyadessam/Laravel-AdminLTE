@@ -43,12 +43,26 @@
             if($input_value){
               eval("echo ".$input_value.";");
             }else if($input_type == 'select'){
-              if(isset($input_data[$row->{$key}]))
-              echo $input_data[$row->{$key}];
-              else
-              echo $row->{$key};
+              if(is_array($row->{$key})){
+                foreach($row->{$key} As $mSelect){
+                  if(isset($input_data[$mSelect]))
+                    echo $input_data[$mSelect].', ';
+                  else
+                    echo $mSelect.', ';
+                }
+              }else{
+                if(isset($input_data[$row->{$key}]))
+                  echo $input_data[$row->{$key}];
+                else
+                  echo $row->{$key};
+              }
             }else if($input_type == 'file' && $row->{$key}){
-              echo '<img src="'.url($update_path.'/'.$row->{$key}).'" class="img-responsive img-thumbnail" />';
+              if(filter_var($row->{$key}, FILTER_VALIDATE_URL))
+                $data_img = $row->{$key};
+              else
+                $data_img = url($update_path.'/'.$row->{$key});
+
+              echo '<img src="'.$data_img.'" class="img-responsive img-thumbnail" />';
             }else if($input_type == 'checkbox'){
               if($row->{$key}){
                 echo '<i class="fa fa-check-circle-o"></i>';

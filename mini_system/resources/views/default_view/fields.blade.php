@@ -42,17 +42,49 @@
               <i class="fa fa-calendar"></i>
             </div>
             <?php
-            echo Form::{$input_type}($key, $input_value, array_merge(['class' => $input_class.' datepicker'], $input_attributes));
+            echo Form::{$input_type}($key, $input_value, array_merge(['class' => $input_class.' datepicker', 'autocomplete' => 'off'], $input_attributes));
             ?>
           </div>
           <?php
         }else{
           if($input_type == 'select'){
-            echo Form::select($key, $input_data, $input_value, array_merge(['class' => $input_class], $input_attributes));
+            if(isset($input_attributes) && in_array('multiple', $input_attributes)){
+              $selectData = [];
+              if(isset($row) && $row->{$key}){
+                if(is_array($row->{$key}))
+                  $selectData = $row->{$key};
+                else
+                  $selectData = explode(',', $row->{$key});
+              }
+
+              $attributesText = '';
+              foreach($input_attributes As $inputAttrKey=>$inputAttrValue){
+                if(is_numeric($inputAttrKey))
+                  $attributesText .= ' '.$inputAttrValue;
+                else
+                  $attributesText .= ' '.$inputAttrKey.'="'.$inputAttrValue.'"';
+              }
+              ?>
+              <select <?= (!isset($input_attributes['name']))? 'name="'.$key.'"' : '' ?> <?= (!isset($input_attributes['id']))? 'id="'.$key.'"' : '' ?> class="form-control" <?= $attributesText ?>>
+                <?php 
+                if($input_data){
+                  foreach($input_data As $ikey=>$ivalue){
+                    ?><option value="<?=$ikey?>"  <?php echo (in_array($ikey, $selectData))? 'selected="selected"' : '' ?> ><?=$ivalue?></option><?php
+                  }
+                }
+                ?>
+              </select>
+              <?php
+            }else{
+              echo Form::select($key, $input_data, $input_value, array_merge(['class' => $input_class], $input_attributes));
+            }
           }else if($input_type == 'file'){
             $data_img = '';
             if(isset($row) && $row->{$key}){
-              $data_img = url($update_path.'/'.$row->{$key});
+              if(filter_var($row->{$key}, FILTER_VALIDATE_URL))
+                $data_img = $row->{$key};
+              else
+                $data_img = url($update_path.'/'.$row->{$key});
             }
             echo '<input type="file" name="'.$key.'" value="" data-img="'.$data_img.'" />';
           }else if($input_type == 'checkbox'){

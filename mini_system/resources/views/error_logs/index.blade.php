@@ -44,13 +44,13 @@
 
         <div class="row">
           @if(count($logs))
-          <div class="col-xs-12">
+          <div class="col-xs-12 report-error-div">
             <div class="table-responsive">
               <table class="table table-striped">
                 @foreach($logs As $key=>$val)
-                <?php
-                if(empty($val)) continue;
-                ?>
+                  @if(empty($val)) 
+                    @continue
+                  @endif
                 <tr>
                   <td>{{ ($key+1) }}</td>
                   <td style="white-space: nowrap;">{{ $val }}</td>
