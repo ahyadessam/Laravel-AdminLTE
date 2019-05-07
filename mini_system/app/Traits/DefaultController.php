@@ -18,6 +18,7 @@ use Session;
 * @param $_permission (string) permission name
 * @param $_default_where (array) default where query will apply to all functions ex. ['user_type' => 'user'].
 * if you need to use current login ID in default where just set is as (string) $_auth_id
+* @param $_select_raw (string) default value '*', if you need to custom select.
 * @param $_order_by (string) by default 'id'.
 * @param $_sort (string) by default 'DESC'.
 * @param $_use_paginate (boolean) by default 'false', it for if you need pagination or data table.
@@ -60,6 +61,7 @@ trait DefaultController {
   protected $_model           = '';
   protected $_permission      = '';
   protected $_default_where   = [];
+  protected $_select_raw      = '*';
   protected $_order_by        = 'id';
   protected $_sort            = 'DESC';
   protected $_use_paginate    = false;
@@ -132,9 +134,9 @@ trait DefaultController {
   
 		if($this->_use_paginate){
 		  if(!empty($this->_default_where)){
-			 $rows = $this->_model::where($this->getWhereValue($this->_default_where))->orderBy($this->_order_by, $this->_sort)->paginate($this->_rows_per_page);
+			 $rows = $this->_model::selectRaw($this->_select_raw)->where($this->getWhereValue($this->_default_where))->orderBy($this->_order_by, $this->_sort)->paginate($this->_rows_per_page);
 		  }else{
-			 $rows = $this->_model::orderBy($this->_order_by, $this->_sort)->paginate($this->_rows_per_page);
+			 $rows = $this->_model::selectRaw($this->_select_raw)->orderBy($this->_order_by, $this->_sort)->paginate($this->_rows_per_page);
 		  }
   
       if($this->_index_view)
@@ -180,17 +182,19 @@ trait DefaultController {
         }
 
 				if(!empty($_GET['search']['value'])){
-					$rows = $this->searchRows($_GET['search']['value']);
-					$jsonData['recordsTotal'] = $jsonData['recordsFiltered'] = $rows->count();
+					$rows = $this->searchRows($_GET['search']['value'], $offset);
+					$jsonData['recordsTotal'] = $jsonData['recordsFiltered'] = $this->searchRows($_GET['search']['value'], 0, true);
 				}else{
           if($this->_is_search_page == false){
             if(!empty($this->_default_where)){
               $jsonData['recordsTotal'] = $jsonData['recordsFiltered'] = $this->_model::where($this->getWhereValue($this->_default_where))->count();
-              $rows = $this->_model::where($this->getWhereValue($this->_default_where))->orderBy($this->_order_by, $this->_sort)
+              $rows = $this->_model::selectRaw($this->_select_raw)->where($this->getWhereValue($this->_default_where))
+              ->orderBy($this->_order_by, $this->_sort)
               ->offset($offset)->limit($this->_rows_per_page)->get();
             }else{
               $jsonData['recordsTotal'] = $jsonData['recordsFiltered'] = $this->_model::count();
-              $rows = $this->_model::orderBy($this->_order_by, $this->_sort)->offset($offset)->limit($this->_rows_per_page)->get();
+              $rows = $this->_model::selectRaw($this->_select_raw)->orderBy($this->_order_by, $this->_sort)
+              ->offset($offset)->limit($this->_rows_per_page)->get();
             }
           }
 				}
@@ -239,9 +243,10 @@ trait DefaultController {
 			  return view($this->_view.'.indexAjax', compact($variables));
 		}else{
 		  if(!empty($this->_default_where)){
-			 $rows = $this->_model::where($this->getWhereValue($this->_default_where))->orderBy($this->_order_by, $this->_sort)->get();
+       $rows = $this->_model::selectRaw($this->_select_raw)->where($this->getWhereValue($this->_default_where))
+       ->orderBy($this->_order_by, $this->_sort)->get();
 		  }else{
-			  $rows = $this->_model::orderBy($this->_order_by, $this->_sort)->get();
+			  $rows = $this->_model::selectRaw($this->_select_raw)->orderBy($this->_order_by, $this->_sort)->get();
 		  }
   
       if($this->_index_view)
@@ -251,7 +256,7 @@ trait DefaultController {
 		}
   }
   
-  public function searchRows($value){
+  public function searchRows($value, $offset=0, $getCount=false){
     $queryRaw = [];
 
     if(!empty($value) && !empty($this->_search_columns)){
@@ -265,16 +270,39 @@ trait DefaultController {
 		
 		if(!empty($this->_default_where)){
       if(!empty($queryRaw)){
-        $rows = $this->_model::where($this->getWhereValue($this->_default_where))->whereRaw('('. implode(' OR ', $queryRaw) .')')
-        ->orderBy($this->_order_by, $this->_sort)->paginate($this->_rows_per_page);
+        if($getCount == true){
+          $rows = $this->_model::where($this->getWhereValue($this->_default_where))->whereRaw('('. implode(' OR ', $queryRaw) .')')
+          ->count();
+        }else{
+          $rows = $this->_model::selectRaw($this->_select_raw)->where($this->getWhereValue($this->_default_where))
+          ->whereRaw('('. implode(' OR ', $queryRaw) .')')
+          ->orderBy($this->_order_by, $this->_sort)->offset($offset)->limit($this->_rows_per_page)->get();
+        }
       }else{
-        $rows = $this->_model::where($this->getWhereValue($this->_default_where))->orderBy($this->_order_by, $this->_sort)->paginate($this->_rows_per_page);
+        if($getCount == true){
+          $rows = $this->_model::where($this->getWhereValue($this->_default_where))->count();
+        }else{
+          $rows = $this->_model::selectRaw($this->_select_raw)->where($this->getWhereValue($this->_default_where))
+          ->orderBy($this->_order_by, $this->_sort)
+          ->offset($offset)->limit($this->_rows_per_page)->get();
+        }
       }
 		}else{
       if(!empty($queryRaw)){
-        $rows = $this->_model::whereRaw('('. implode(' OR ', $queryRaw) .')')->orderBy($this->_order_by, $this->_sort)->paginate($this->_rows_per_page);
+        if($getCount == true){
+          $rows = $this->_model::whereRaw('('. implode(' OR ', $queryRaw) .')')->count();
+        }else{
+          $rows = $this->_model::selectRaw($this->_select_raw)->whereRaw('('. implode(' OR ', $queryRaw) .')')
+          ->orderBy($this->_order_by, $this->_sort)
+          ->offset($offset)->limit($this->_rows_per_page)->get();
+        }
       }else{
-        $rows = $this->_model::orderBy($this->_order_by, $this->_sort)->paginate($this->_rows_per_page);
+        if($getCount == true){
+          $rows = $this->_model::count();
+        }else{
+          $rows = $this->_model::selectRaw($this->_select_raw)->orderBy($this->_order_by, $this->_sort)
+          ->offset($offset)->limit($this->_rows_per_page)->get();
+        }
       }
     }
     

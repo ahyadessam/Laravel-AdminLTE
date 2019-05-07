@@ -125,7 +125,7 @@
       ],
       processing: true,
       serverSide: true,
-      ajax: '{{ (isset($ajax_url) && !empty($ajax_url))? $ajax_url : $route_link }}',
+      ajax: '{!! (isset($ajax_url) && !empty($ajax_url))? $ajax_url : $route_link !!}',
       columns: {!! $jsonColumns !!}
     });
 

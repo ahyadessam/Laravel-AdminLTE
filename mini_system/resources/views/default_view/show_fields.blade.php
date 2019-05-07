@@ -28,7 +28,7 @@
           $input_value = $val['value'];
 
 
-          if($input_type == 'hidden'){
+          if($input_type == 'hidden' || $input_type == 'password'){
             continue;
           }else{
             if(isset($val['new_line']) && $val['new_line'] == true && 0){
