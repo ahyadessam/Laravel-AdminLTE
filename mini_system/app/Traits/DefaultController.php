@@ -6,7 +6,7 @@ use Session;
 
 /**
 * SIMPLE LARAVEL CRUD
-* Created by Ahyad Essam in 6-1-2018
+* Created by Ahyad Essam in 6-1-2018 ahyad.essam@gmail.com 
 * using larave collective https://laravelcollective.com/docs/master/html#installation
 * { HOW TO USE }
 * 1- Include my trait in your controller (use App\Traits\DefaultController;).

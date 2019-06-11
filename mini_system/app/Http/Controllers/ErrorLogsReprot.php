@@ -16,6 +16,7 @@ class ErrorLogsReprot extends Controller
 
   - comment this line : parent::report($exception);
   - put this line instead of above :
+  if(!empty($exception->getMessage()))
   \Log::error('['.$exception->getCode().'] "'.$exception->getMessage().'" on line '.$exception->getLine().' of file '.$exception->getFile());
 
   Thanks
